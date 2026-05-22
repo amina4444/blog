@@ -7,26 +7,29 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
 
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = '__all__'
-
 
 class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = 'id author title'.split()
 
+
 class CommentListserializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = 'id author body'.split()
+        fields = 'id author body created_at updated_at'.split()
 
-class PostValidatorSerializer(serializers.Serializer):
-    title = serializers.CharField(required=True,min_length=1,max_length=200)
-    body = serializers.CharField(required=False, default="No text")
-    
+
+class PostValidatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = 'title  body'.split()
+
+
+class CommentValidatorSerializer(serializers.ModelSerializer):
+    class Meta:
+       model = Comment
+       fields = 'post body'.split()
 
 
 
